@@ -7,8 +7,7 @@ const Navbar = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
-  console.log(location);
-  const user = true;
+  const user = false;
 
   const handleClick = () => {
     navigate("/");
@@ -16,7 +15,7 @@ const Navbar = () => {
   return (
     <div className="h-[80px] max-w-[1300px] mx-auto bg-white px-8 flex items-center justify-between">
       <div className="flex gap-x-8 items-center">
-        <div className="flex items-center gap-x-4" onClick={handleClick}>
+        <div className="flex items-center gap-x-4 cursor-pointer" onClick={handleClick}>
           <PiBowlFood size={50} color="gray" />
           <h1 className="text-4xl text-slate-700 font-bold">MASAK</h1>
         </div>
@@ -27,8 +26,8 @@ const Navbar = () => {
         />
       </div>
       {!user && pathname != "/auth" && (
-        <Link to="/auth" className="text-slate-700 rounded-sm text-xl font-semibold">
-          LOGIN
+        <Link to="/auth" className="text-slate-700 rounded-sm text-xl font-semibold border-solid border-2 border-slate-950 border-opacity-50 px-5 py-2 hover:text-slate-50 hover:bg-slate-900">
+          SIGN IN
         </Link>
       )}
       {user && (
