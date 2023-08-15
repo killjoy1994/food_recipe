@@ -1,13 +1,18 @@
 import React from "react";
 import { PiBowlFood } from "react-icons/pi";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { signout } from "../../redux/actions/auth";
+import { SIGNOUT } from "../../redux/constants/constant";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
+  const user = JSON.parse(localStorage.getItem("authData"));
+  const dispatch = useDispatch();
 
-  const user = false;
+  console.log(user);
 
   const handleClick = () => {
     navigate("/");
@@ -26,7 +31,10 @@ const Navbar = () => {
         />
       </div>
       {!user && pathname != "/auth" && (
-        <Link to="/auth" className="text-slate-700 rounded-sm text-xl font-semibold border-solid border-2 border-slate-950 border-opacity-50 px-5 py-2 hover:text-slate-50 hover:bg-slate-900">
+        <Link
+          to="/auth"
+          className="text-slate-700 rounded-sm text-lg font-semibold border-solid border-2 border-slate-950 border-opacity-50 px-4 py-1 hover:text-slate-50 hover:bg-slate-900"
+        >
           SIGN IN
         </Link>
       )}
@@ -34,9 +42,17 @@ const Navbar = () => {
         <div className="flex items-center gap-x-5">
           <div className="gap-x-2 items-center flex">
             <span className="h-5 w-5 bg-red-700 block rounded-full"></span>
-            <h2>Bagus Nugroho</h2>
+            <h2>{user?.result?.firstname}</h2>
           </div>
-          {/* <button className="text-slate-700 rounded-sm px-3 py-1 font-semibold">LOGOUT</button> */}
+          {/* <button
+            onClick={() => {
+              console.log("test");
+              return dispatch({type: SIGNOUT})
+            }}
+            className="text-slate-700 rounded-sm px-3 py-1 font-semibold"
+          >
+            LOGOUT
+          </button> */}
         </div>
       )}
     </div>

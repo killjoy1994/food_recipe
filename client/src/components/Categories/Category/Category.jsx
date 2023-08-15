@@ -1,13 +1,13 @@
 import React from "react";
 import Dessert from "../../../assets/dessert.jpg"
 
-const Category = () => {
+const Category = ({data}) => {
   return (
     <div className="flex flex-col h-[300px]">
       <div className="h-[80%]  overflow-hidden">
-        <img className="h-full w-full object-cover" src={Dessert} alt="dessert" />
+        <img className="h-full w-full object-cover hover:scale-105 transition" src={data.imgPath} alt="dessert" />
       </div>
-      <p className="text-slate-700 text-xl font-semibold text-center mt-2">Dessert</p>
+      <p className="text-slate-700 text-xl font-semibold text-center mt-2">{data.name}</p>
     </div>
   );
 };

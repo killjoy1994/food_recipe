@@ -13,15 +13,15 @@ const signinController = async (req, res) => {
     if (!isMatchPassword) return res.status(401).json({ message: "Password is invalid!" });
 
     const token = await jwt.sign({ email: user.email, id: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
-    // const token = await jwt.sign({ email: result.email, id: result._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
-    res.status(200).json(token);
+    res.status(200).json({ result: user, token });
   } catch (error) {
     console.log(error);
   }
 };
 const signupController = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, firstname, lastname } = req.body;
 
+  console.log("KEY: ", process.env.SECRET_KEY);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -29,9 +29,8 @@ const signupController = async (req, res) => {
     }
 
     const hashedPwd = await bcrypt.hash(password, 12);
-    const result = await User.create({ email, password: hashedPwd });
-    const token = await jwt.sign({ email: result.email, id: result._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
-    res.status(201).json({ result, token });
+    await User.create({ email, firstname, lastname, password: hashedPwd });
+    res.status(201).json({ message: "Successfully create the user!" });
   } catch (error) {
     console.log(error);
   }
