@@ -8,6 +8,8 @@ const CreateForm = (props) => {
   const { values } = props;
   // console.log(values);
 
+  const categories = ["Chicken", "Beef", "Drink", "Dessert", "Soup", "Vegan"];
+
   return (
     <Form className="mt-8 mb-20 flex flex-row-reverse justify-between">
       <Field component={FileInput} name="selectedFile" />
@@ -39,11 +41,60 @@ const CreateForm = (props) => {
             <ErrorMessage name="description" />
           </div>
 
-          {/* <Field name="selectedFile" type="file"/> */}
-          {/* <FileBase64 onDone={(files) => console.log(files)} /> */}
+          {/* ================== TIME =================== */}
+          <div className="flex w-full flex-col">
+            <label className="text-slate-700 font-semibold" htmlFor="title">
+              Preparation Time
+            </label>
+            <Field
+              className="border border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
+              name="preparationTime"
+              type="text"
+              placeholder="e.g 40mins, 1hours etc..."
+            />
+            <ErrorMessage name="preparationTime" />
+          </div>
+
+          <div className="flex w-full flex-col">
+            <label className="text-slate-700 font-semibold" htmlFor="title">
+              Cook Time
+            </label>
+            <Field
+              className="border border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
+              name="cookTime"
+              type="text"
+              placeholder="e.g 40mins, 1hours etc..."
+            />
+            <ErrorMessage name="cookTime" />
+          </div>
+
+          {/* ================== CATEGORY ====================== */}
+          <div className="flex w-full flex-col">
+            <label className="text-slate-700 font-semibold" htmlFor="description">
+              Food Category
+            </label>
+            <Field
+              className="border border-solid border-opacity-40 border-slate-800 rounded-sm outline-none mt-1 pl-2 py-1 text-slate-700"
+              name="category"
+              as="select"
+              // placeholder="Select category of your food..."
+            >
+              {/* <option disabled value="">
+                Select category of your recipe
+              </option> */}
+              {categories.map((ctg, idx) => {
+                return (
+                  <option key={idx} value={ctg}>
+                    {ctg}
+                  </option>
+                );
+              })}
+            </Field>
+            <ErrorMessage name="description" />
+          </div>
 
           {/* ================= INGREDIENTS ===================== */}
-          <div>
+          <div className="mt-2">
             <label className="text-slate-700 font-semibold" htmlFor="ingredients">
               Ingredients
             </label>

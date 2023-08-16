@@ -35,9 +35,11 @@ const CreateRecipe = () => {
             initialValues={{
               title: "",
               description: "",
-              selectedFile: "",
+              preparationTime: "",
+              cookTime: "",
               ingredients: [{ name: "", placeholder: "ex: 500gr 0f chicken" }],
               steps: [{ name: "", placeholder: "ex: Pour salt into bowl" }],
+              selectedFile: "",
             }}
             // validationSchema={Yup.object({
             //   firstName: Yup.string().max(15, "Must be 15 characters or less").required("Required"),
