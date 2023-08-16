@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CreateRecipe from "./components/CreateRecipe/CreateRecipe";
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
           <Route path="/recipes" element={<FoodPosts />} />
           <Route path="/categories" element={<Categories />} />
         </Route>
+        <Route path="/createRecipe" element={<CreateRecipe />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<div>ERROR</div>} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

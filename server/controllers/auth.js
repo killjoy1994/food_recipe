@@ -19,7 +19,7 @@ const signinController = async (req, res) => {
   }
 };
 const signupController = async (req, res) => {
-  const { email, password, firstname, lastname } = req.body;
+  const { email, password, username } = req.body;
 
   console.log("KEY: ", process.env.SECRET_KEY);
   try {
@@ -29,7 +29,7 @@ const signupController = async (req, res) => {
     }
 
     const hashedPwd = await bcrypt.hash(password, 12);
-    await User.create({ email, firstname, lastname, password: hashedPwd });
+    await User.create({ email, username, password: hashedPwd });
     res.status(201).json({ message: "Successfully create the user!" });
   } catch (error) {
     console.log(error);

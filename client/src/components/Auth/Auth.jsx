@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import LoginImage from "../../assets/login.jpg";
+import food from "../../assets/food.jpg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup, signin } from "../../redux/actions/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { PiBowlFood } from "react-icons/pi";
+import BrandLogo from "../Elements/BrandLogo";
 
 const initialState = {
   firstname: "",
@@ -16,7 +17,7 @@ const initialState = {
 };
 
 const Auth = () => {
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
   const [formValues, setFormValues] = useState(initialState);
   const dispatch = useDispatch(signup(formValues));
   const navigate = useNavigate();
@@ -48,64 +49,70 @@ const Auth = () => {
 
   return (
     <div className="max-w-[1300px] mx-auto bg-white flex justify-center">
-      <div className="flex mt-16 gap-x-8">
-        <div className="w-[400px]">
-          <img className="h-full w-full" src={LoginImage} alt="" />
+      <div className="flex mt-20 gap-x-8">
+        <div className="fixed top-0 left-0 bottom-0 w-[50%]">
+          <img className="h-full w-full object-cover" src={food} alt="" />
         </div>
-        <div className="w-[300px]">
-          <h2 className="text-3xl font-semibold text-slate-700 text-center mb-5">{isRegistered ? "SIGN IN" : "SIGN UP"}</h2>
+        <div className="ml-[500px] w-[300px]">
+          <BrandLogo logoSize={35} textSize={"text-2xl"} />
+          <h2 className="text-xl font-bold text-slate-700 mb-3 mt-5">{isRegistered ? "Log in" : "Register"}</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-y-2" autoComplete="off">
             {!isRegistered && (
               <>
-                <input
-                  placeholder="Firstname..."
-                  className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
-                  type="text"
-                  value={formValues.firstname}
-                  onChange={(e) => setFormValues({ ...formValues, firstname: e.target.value })}
-                />
-                <input
-                  placeholder="Lastname..."
-                  className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
-                  type="text"
-                  value={formValues.lastname}
-                  onChange={(e) => setFormValues({ ...formValues, lastname: e.target.value })}
-                />
+                <label>
+                  <span className="font-semibold mb-2 text-slate-700">Username</span>
+                  <input
+                    placeholder="Firstname..."
+                    className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
+                    type="text"
+                    value={formValues.firstname}
+                    onChange={(e) => setFormValues({ ...formValues, firstname: e.target.value })}
+                  />
+                </label>
               </>
             )}
-            <input
-              placeholder="Email..."
-              className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
-              type="text"
-              value={formValues.email}
-              onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
-              autoComplete="off"
-            />
-            <input
-              placeholder="Password..."
-              className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
-              type="password"
-              value={formValues.password}
-              onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
-              autoComplete="off"
-            />
-            {!isRegistered && (
+            <label>
+              <span className="font-semibold mb-2 text-slate-700">Email</span>
               <input
-                placeholder="Confirm Password..."
+                placeholder="Email..."
                 className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
                 type="text"
-                value={formValues.confirmPassword}
-                onChange={(e) => setFormValues({ ...formValues, confirmPassword: e.target.value })}
+                value={formValues.email}
+                onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
+                autoComplete="off"
               />
-            )}
-            <div className="flex gap-x-2 text-slate-700 items-center">
+            </label>
+            <label>
+              <span className="font-semibold mb-2 text-slate-700">Password</span>
+              <input
+                placeholder="Password..."
+                className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
+                type="password"
+                value={formValues.password}
+                onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
+                autoComplete="off"
+              />
+            </label>
+            {/* {!isRegistered && (
+              <label>
+                <span className="font-semibold mb-2 text-slate-700">Confirm Password</span>
+                <input
+                  placeholder="Confirm Password..."
+                  className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
+                  type="text"
+                  value={formValues.confirmPassword}
+                  onChange={(e) => setFormValues({ ...formValues, confirmPassword: e.target.value })}
+                />
+              </label>
+            )} */}
+            <div className="flex gap-x-2 text-slate-700 items-center mt-2">
               <p className="text-opacity-30">{!isRegistered ? "Doenst have an acount?" : "Already have an account?"}</p>
               <span className="font-semibold cursor-pointer text-[14px]" onClick={() => setIsRegistered((prevState) => !prevState)}>
-                {isRegistered ? "Sign up" : "Sign in"}
+                {!isRegistered ? "Join now" : "Log in"}
               </span>
             </div>
-            <button type="submit" className="bg-blue-600 p-1 rounded-sm text-slate-50 font-semibold">
-              SUBMIT
+            <button type="submit" className="bg-blue-600 p-2 rounded-sm text-slate-50 font-semibold">
+              {!isRegistered ? "Join Now" : "Log in"}
             </button>
           </form>
         </div>

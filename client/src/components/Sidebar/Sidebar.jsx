@@ -1,5 +1,5 @@
 import React from "react";
-import RecipeForm from "../RecipeForm/RecipeForm";
+import CreateRecipe from "../CreateRecipe/CreateRecipe";
 
 const Sidebar = () => {
   const submitHandler = () => {};
@@ -10,7 +10,7 @@ const Sidebar = () => {
         <input type="text" placeholder="Categories..." className="shadow-sm p-2 border-2 border-solid outline-none rounded-sm" />
         <button className="py-1 bg-blue-600 text-slate-50 font-semibold mt-2 rounded-sm">Search</button>
       </form>
-      {/* <RecipeForm /> */}
+      {/* <CreateRecipe /> */}
     </div>
   );
 };

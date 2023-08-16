@@ -8,7 +8,7 @@ export const signup = (formData, notify) => {
       await API.signup(formData);
       dispatch({ type: SIGNUP });
       dispatch({ type: LOADING_END });
-      notify("success", "Your account has been created successfully, please login...");
+      notify("success", "Account created, welcome!");
     } catch (error) {
       console.log(error);
       notify("fail", error.response.data.message);
@@ -23,7 +23,7 @@ export const signin = (formData, notify, navigate) => {
       console.log(response);
       dispatch({ type: SIGNIN, payload: response.data });
       dispatch({ type: LOADING_END });
-      notify("success", "Sign in successfully!");
+      notify("success", "Welcome back!");
       navigate("/");
     } catch (error) {
       console.log(error);

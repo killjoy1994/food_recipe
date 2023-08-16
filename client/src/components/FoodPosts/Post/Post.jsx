@@ -6,9 +6,9 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 const Post = () => {
   return (
-    <div className=" bg-white pb-3 border-solid border-2 shadow-lg">
+    <div className=" bg-white pb-3">
       <div className="h-[250px] overflow-hidden relative">
-        <img className="object-cover h-full w-full hover:scale-105 transition" src={Dessert} alt="" />
+        <img className="object-cover h-full w-full hover:brightness-75 transition" src={Dessert} alt="" />
         <div className="top-0 absolute cursor-pointer p-2 w-full flex justify-end">
           <BsThreeDotsVertical color="white" size={15} />
         </div>

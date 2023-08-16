@@ -1,6 +1,6 @@
 import React from "react";
 import FoodPosts from "../FoodPosts/FoodPosts";
-import RecipeForm from "../RecipeForm/RecipeForm";
+import CreateRecipe from "../CreateRecipe/CreateRecipe";
 import Sidebar from "../Sidebar/Sidebar";
 import Categories from "../Categories/Categories";
 import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
