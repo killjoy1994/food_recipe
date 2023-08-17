@@ -12,6 +12,7 @@ const signinController = async (req, res) => {
     const isMatchPassword = await bcrypt.compare(password, user.password);
     if (!isMatchPassword) return res.status(401).json({ message: "Password is invalid!" });
 
+    console.log("user", user)
     const token = await jwt.sign({ email: user.email, id: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
     res.status(200).json({ result: user, token });
   } catch (error) {

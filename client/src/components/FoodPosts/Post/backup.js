@@ -16,12 +16,17 @@ const Post = ({ data }) => {
       </div>
       <div className="px-3">
         <p className="text-xl mt-3 font-semibold text-slate-700">{data.title}</p>
-        <div className="flex justify-between">
-          <p className="text-slate-700 font-medium">{data.preparationTime}</p>
-          <span>Medium</span>
-        </div>
+        <p className="text-xs font-semibold text-slate-500">By: Bagus Nugroho</p>
       </div>
-     
+      <div className="flex justify-between mt-5 px-2">
+        <div className=" flex items-center gap-x-1">
+          <AiOutlineHeart size={20} />
+          <p className="font-medium text-slate-700">Like the this</p>
+        </div>
+        {/* <button>
+          <RiDeleteBin6Line size={20} />
+        </button> */}
+      </div>
     </div>
   );
 };

@@ -39,8 +39,7 @@ const Auth = () => {
       dispatch(signin(formValues, notify, navigate));
     }
     setFormValues({
-      firstname: "",
-      lastname: "",
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -65,8 +64,8 @@ const Auth = () => {
                     placeholder="Firstname..."
                     className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
                     type="text"
-                    value={formValues.firstname}
-                    onChange={(e) => setFormValues({ ...formValues, firstname: e.target.value })}
+                    value={formValues.username}
+                    onChange={(e) => setFormValues({ ...formValues, username: e.target.value })}
                   />
                 </label>
               </>

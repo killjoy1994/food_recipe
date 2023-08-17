@@ -14,7 +14,7 @@ const Profile = ({ user, dispatch, setUser }) => {
         {/* Backdrop */}
         <div className="gap-x-2 items-center flex cursor-pointer z-20" onClick={() => setShowPopup((prevState) => !prevState)}>
           <span className="h-5 w-5 bg-red-700 block rounded-full"></span>
-          <h2 className="text-xl font-semibold text-slate-700">{user?.result?.firstname}</h2>
+          <h2 className="text-xl font-semibold text-slate-700">{user?.result?.username}</h2>
           <div className="cursor-pointer">
             <BsThreeDotsVertical color="grey" />
           </div>

@@ -6,21 +6,20 @@ import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 // import { ImCross } from "react-icons/im";
 import CreateForm from "./CreateForm/CreateForm";
+import { useDispatch } from "react-redux";
+import { createRecipe } from "../../redux/actions/recipes";
 
 const CreateRecipe = () => {
   const navigate = useNavigate();
-
-  const cancelHandler = () => {
-    navigate("/");
-  };
+  const dispatch = useDispatch();
   return (
     <div className="min-h-screen relative flex">
       <div className="overflow-hidden h-screen w-[30%] fixed">
         <img src={ingredientsImg} className="h-full w-full object-cover" alt="" />
       </div>
       <div className="w-full min-h-screen ml-[30%]">
-        <div className="mt-6 ml-20 max-w-[600px]">
-          <div className="flex justify-between">
+        <div className="mt-6 ml-20 max-w-[800px]">
+          <div className="flex gap-y-5 flex-col-reverse">
             <h2 className="font-bold text-slate-700 text-2xl">Create Recipe</h2>
             <BrandLogo logoSize={30} textSize="text-md" />
             {/* <div
@@ -35,8 +34,14 @@ const CreateRecipe = () => {
             initialValues={{
               title: "",
               description: "",
-              preparationTime: "",
-              cookTime: "",
+              preparationTime: {
+                count: 0,
+                measure: "mins",
+              },
+              cookTime: {
+                count: 0,
+                measure: "mins",
+              },
               ingredients: [{ name: "", placeholder: "ex: 500gr 0f chicken" }],
               steps: [{ name: "", placeholder: "ex: Pour salt into bowl" }],
               selectedFile: "",
@@ -48,6 +53,7 @@ const CreateRecipe = () => {
             // })}
             onSubmit={(values) => {
               console.log("VALUES: ", values);
+              // dispatch(createRecipe(values));
             }}
             component={CreateForm}
           />

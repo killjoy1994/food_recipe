@@ -11,9 +11,9 @@ const CreateForm = (props) => {
   const categories = ["Chicken", "Beef", "Drink", "Dessert", "Soup", "Vegan"];
 
   return (
-    <Form className="mt-8 mb-20 flex flex-row-reverse justify-between">
+    <Form className="mt-8 mb-20 flex flex-row-reverse justify-end">
       <Field component={FileInput} name="selectedFile" />
-      <div className=" w-full">
+      <div className="w-[400px]">
         <div className="flex flex-col gap-y-2">
           <div className="flex w-full flex-col">
             <label className="text-slate-700 font-semibold" htmlFor="title">
@@ -46,12 +46,22 @@ const CreateForm = (props) => {
             <label className="text-slate-700 font-semibold" htmlFor="title">
               Preparation Time
             </label>
-            <Field
-              className="border border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
-              name="preparationTime"
-              type="text"
-              placeholder="e.g 40mins, 1hours etc..."
-            />
+            <div className="flex gap-x-2 w-full">
+              <Field
+                className="border w-1/4 border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
+                name="preparationTime.count"
+                type="number"
+                min={0}
+              />
+              <Field
+                as="select"
+                className="border w-3/4 border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
+                name="preparationTime.measure"
+              >
+                <option value="mins">mins</option>
+                <option value="hours">hours</option>
+              </Field>
+            </div>
             <ErrorMessage name="preparationTime" />
           </div>
 
@@ -59,12 +69,23 @@ const CreateForm = (props) => {
             <label className="text-slate-700 font-semibold" htmlFor="title">
               Cook Time
             </label>
-            <Field
-              className="border border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
-              name="cookTime"
-              type="text"
-              placeholder="e.g 40mins, 1hours etc..."
-            />
+            <div className="flex gap-x-2 w-full">
+              <Field
+                className="border w-1/4 border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
+                name="cookTime.count"
+                type="number"
+                min={0}
+              />
+              <Field
+                as="select"
+                className="border w-3/4 border-solid pl-2 py-1 text-slate-700 border-slate-800 border-opacity-40 rounded-sm outline-none mt-1"
+                name="cookTime.measure"
+                placeholder="e.g 40mins, 1hours etc..."
+              >
+                <option value="mins">mins</option>
+                <option value="hours">hours</option>
+              </Field>
+            </div>
             <ErrorMessage name="cookTime" />
           </div>
 
