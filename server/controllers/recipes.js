@@ -6,10 +6,11 @@ const getRecipes = async (req, res) => {
   res.json(data);
 };
 const createRecipe = async (req, res) => {
-  const { title, description, preparationTime, cookTime, category, ingredients, steps, selectedFile } = req.body;
+  const { title, description, preparationTime, cookTime, category, ingredients, steps, selectedFile, author } = req.body;
 
   try {
     const newRecipe = await Recipe.create({
+      author,
       title,
       description,
       preparationTime,

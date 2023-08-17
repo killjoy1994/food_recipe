@@ -13,6 +13,8 @@ import { notify } from "../../helpers/notify";
 const CreateRecipe = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("authData"))?.result;
+ 
   return (
     <div className="min-h-screen relative flex">
       <div className="overflow-hidden h-screen w-[30%] fixed">
@@ -35,6 +37,7 @@ const CreateRecipe = () => {
             initialValues={{
               title: "",
               description: "",
+              category: "",
               preparationTime: {
                 count: 0,
                 measure: "mins",
@@ -53,9 +56,9 @@ const CreateRecipe = () => {
             //   email: Yup.string().email("Invalid email address").required("Required"),
             // })}
             onSubmit={(values) => {
-              console.log("VALUES: ", values);
-              dispatch(createRecipe(values, navigate, notify));
-              
+              // console.log("VALUES: ", values);
+              // console.log("User", user.username)
+              dispatch(createRecipe({ ...values, author: user.username }, navigate, notify));
             }}
             component={CreateForm}
           />

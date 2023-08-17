@@ -91,7 +91,7 @@ const CreateForm = (props) => {
 
           {/* ================== CATEGORY ====================== */}
           <div className="flex w-full flex-col">
-            <label className="text-slate-700 font-semibold" htmlFor="description">
+            <label className="text-slate-700 font-semibold" htmlFor="category">
               Food Category
             </label>
             <Field

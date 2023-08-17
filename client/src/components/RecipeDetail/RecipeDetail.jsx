@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getRecipe } from "../../redux/actions/recipes";
 import { getDate } from "../../helpers/getDate";
+import Loader from "../Loader/Loader";
 
 const RecipeDetail = () => {
-  const { recipe } = useSelector((state) => state.recipes);
+  const { recipe, isLoading } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -19,15 +20,18 @@ const RecipeDetail = () => {
 
   console.log("RESEP: ", recipe);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="min-h-screen max-w-[1300px] mx-auto px-8 mb-20">
       {/* <div className="max-w-[400px] h-40">
-        <img src={Desser} alt="" />
-      </div> */}
+     <img src={Desser} alt="" />
+   </div> */}
       <div className="mt-10 pb-1">
         <h2 className="text-4xl text-slate-700 font-semibold mb-1">{recipe?.result?.title}</h2>
         <p className="text-[14px] text-slate-700">
-          <strong className="font-semibold">Published</strong> On {getDate(recipe?.result?.createdAt)}. <strong className="font-semibold">By</strong> Bagus Nugroho
+          <strong className="font-semibold">Published</strong> On {getDate(recipe?.result?.createdAt)}. <strong className="font-semibold">By</strong>{" "}
+          {recipe?.result?.author}
         </p>
       </div>
       <div className="border-y-2 h-16 my-2 border-slate-900 border-opacity-30 flex items-center pl-4">
@@ -54,7 +58,7 @@ const RecipeDetail = () => {
             <BiCategoryAlt size={30} color="grey" />
             <div className="flex flex-col">
               <p className="text-slate-700 font-normal text-[14px]">Category</p>
-              <p className="text-slate-500 italic text-[12px]">Dessert</p>
+              <p className="text-slate-500 italic text-[12px]">{recipe?.result?.category}</p>
             </div>
           </li>
         </ul>
@@ -65,38 +69,26 @@ const RecipeDetail = () => {
         </div>
         <div className="mr-10 w-7/12">
           <h3 className="text-slate-700 text-[18px] font-semibold">{recipe?.result?.title}</h3>
-          <p className="text-slate-600">
-            {recipe?.result?.description}
-          </p>
+          <p className="text-slate-600">{recipe?.result?.description}</p>
           <div className="my-3">
             <h4 className="text-slate-700 text-[16px] font-semibold mb-2">Ingredients</h4>
             <ul>
-              <li className="text-slate-600 text-[14px] mb-1">100 gr di farina manitoba</li>
-              <li className="text-slate-600 text-[14px] mb-1">100 gr di farina manitoba</li>
-              <li className="text-slate-600 text-[14px] mb-1">100 gr di farina manitoba</li>
-              <li className="text-slate-600 text-[14px] mb-1">100 gr di farina manitoba</li>
-              <li className="text-slate-600 text-[14px] mb-1">100 gr di farina manitoba</li>
+              {recipe?.result?.ingredients?.map((data) => (
+                <li key={data._id} className="text-slate-600 text-[14px] mb-1">
+                  {data.name}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="my-3">
             <h4 className="text-slate-700 text-[16px] font-semibold mb-2">Directions</h4>
             <ul>
-              <li className="text-slate-600 text-[14px] mb-1 flex items-center">
-                <strong className="text-xl mr-3">1</strong>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, cumque?</p>
-              </li>
-              <li className="text-slate-600 text-[14px] mb-1 flex items-center">
-                <strong className="text-xl mr-3">2</strong>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-              </li>
-              <li className="text-slate-600 text-[14px] mb-1 flex items-center">
-                <strong className="text-xl mr-3">3</strong>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, cumque? Lorem ipsum dolor sit amet.</p>
-              </li>
-              <li className="text-slate-600 text-[14px] mb-1 flex items-center">
-                <strong className="text-xl mr-3">4</strong>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, cumque? Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-              </li>
+              {recipe?.result?.steps?.map((data, idx) => (
+                <li key={data._id} className="text-slate-600 text-[14px] mb-1 flex items-center">
+                  <strong className="text-xl mr-3">{++idx}</strong>
+                  <p>{data.name}</p>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

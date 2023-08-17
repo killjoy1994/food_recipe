@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import CreateRecipe from "./components/CreateRecipe/CreateRecipe";
 import Recipes from "./components/Recipes/Recipes";
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   return (

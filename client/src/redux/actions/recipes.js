@@ -1,9 +1,11 @@
 import * as api from "../../api/index";
-import { CREATE_RECIPE, FETCH_RECIPE, FETCH_RECIPES } from "../constants/constant";
+import { CREATE_RECIPE, FETCH_RECIPE, FETCH_RECIPES, LOADING_END, LOADING_START } from "../constants/constant";
 
 export const getRecipes = () => async (dispatch) => {
   try {
+    dispatch({ type: LOADING_START });
     const { data } = await api.getRecipes();
+    dispatch({ type: LOADING_END });
     console.log(data);
     dispatch({ type: FETCH_RECIPES, payload: data });
   } catch (error) {
@@ -12,8 +14,10 @@ export const getRecipes = () => async (dispatch) => {
 };
 export const getRecipe = (id) => async (dispatch) => {
   try {
+    dispatch({ type: LOADING_START });
     const { data } = await api.getRecipe(id);
     console.log(data);
+    dispatch({ type: LOADING_END });
     dispatch({ type: FETCH_RECIPE, payload: data });
   } catch (error) {
     console.log(error);
@@ -21,6 +25,7 @@ export const getRecipe = (id) => async (dispatch) => {
 };
 
 export const createRecipe = (formData, navigate, notify) => async (dispatch) => {
+  console.log("FormData: ", formData)
   try {
     const res = await api.createRecipe(formData);
 
