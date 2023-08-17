@@ -3,10 +3,10 @@ import food from "../../assets/food.jpg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup, signin } from "../../redux/actions/auth";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PiBowlFood } from "react-icons/pi";
 import BrandLogo from "../Elements/BrandLogo";
+import { notify } from "../../helpers/notify";
 
 const initialState = {
   firstname: "",
@@ -21,14 +21,6 @@ const Auth = () => {
   const [formValues, setFormValues] = useState(initialState);
   const dispatch = useDispatch(signup(formValues));
   const navigate = useNavigate();
-
-  const notify = (status, message) => {
-    if (status == "success") {
-      toast.success(message);
-    } else {
-      toast.error(message);
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();

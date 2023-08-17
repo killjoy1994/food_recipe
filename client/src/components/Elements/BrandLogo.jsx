@@ -10,8 +10,8 @@ const BrandLogo = ({ logoSize, textSize, onClick }) => {
   };
   return (
     <div className="flex items-center gap-x-4 cursor-pointer" onClick={handleClick}>
-      <PiBowlFood size={logoSize} color="gray" />
-      <h1 className={twMerge("text-4xl text-slate-700 font-bold", textSize)}>MASAK</h1>
+      <PiBowlFood size={logoSize} color="orange" />
+      <h1 className={twMerge("text-4xl text-slate-700 font-bold", textSize)}>masak.</h1>
     </div>
   );
 };

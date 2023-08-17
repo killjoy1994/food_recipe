@@ -1,5 +1,5 @@
 import * as api from "../../api/index";
-import { CREATE_RECIPE, FETCH_RECIPES } from "../constants/constant";
+import { CREATE_RECIPE, FETCH_RECIPE, FETCH_RECIPES } from "../constants/constant";
 
 export const getRecipes = () => async (dispatch) => {
   try {
@@ -10,13 +10,25 @@ export const getRecipes = () => async (dispatch) => {
     console.log(error);
   }
 };
+export const getRecipe = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.getRecipe(id);
+    console.log(data);
+    dispatch({ type: FETCH_RECIPE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export const createRecipe = (formData) => async (dispatch) => {
+export const createRecipe = (formData, navigate, notify) => async (dispatch) => {
   try {
     const res = await api.createRecipe(formData);
 
     dispatch({ type: CREATE_RECIPE, payload: res });
+    notify("success", "Your recipe already created!");
+    navigate("/");
   } catch (error) {
-    console.log(Error);
+    notify("error", error.message);
+    console.log(error);
   }
 };

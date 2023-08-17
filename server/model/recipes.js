@@ -17,6 +17,12 @@ const recipeSchema = new Schema(
         measure: String,
       },
     },
+    totalTime: {
+      type: {
+        hours: Number,
+        minutes: Number,
+      },
+    },
     category: String,
     ingredients: {
       type: [

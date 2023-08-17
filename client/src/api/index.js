@@ -16,4 +16,5 @@ export const signin = (formData) => API.post("/users/signin", formData);
 
 //recipes
 export const getRecipes = () => API.get("/recipes");
+export const getRecipe = (id) => API.get(`/recipes/${id}`);
 export const createRecipe = (formData) => API.post("/recipes", formData);

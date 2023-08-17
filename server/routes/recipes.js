@@ -4,8 +4,8 @@ const { getRecipes, createRecipe, deleteRecipe, getRecipe } = require("../contro
 const verifyJwt = require("../middleware/jwtVerify");
 
 router.get("/", verifyJwt, getRecipes);
-router.post("/", createRecipe);
-router.post("/", deleteRecipe);
-router.post("/:id", getRecipe);
+router.post("/", verifyJwt, createRecipe);
+router.post("/", verifyJwt, deleteRecipe);
+router.get("/:id", getRecipe);
 
 module.exports = router;

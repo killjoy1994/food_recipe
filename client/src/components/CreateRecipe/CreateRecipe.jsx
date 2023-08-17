@@ -8,6 +8,7 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import CreateForm from "./CreateForm/CreateForm";
 import { useDispatch } from "react-redux";
 import { createRecipe } from "../../redux/actions/recipes";
+import { notify } from "../../helpers/notify";
 
 const CreateRecipe = () => {
   const navigate = useNavigate();
@@ -53,7 +54,8 @@ const CreateRecipe = () => {
             // })}
             onSubmit={(values) => {
               console.log("VALUES: ", values);
-              // dispatch(createRecipe(values));
+              dispatch(createRecipe(values, navigate, notify));
+              
             }}
             component={CreateForm}
           />

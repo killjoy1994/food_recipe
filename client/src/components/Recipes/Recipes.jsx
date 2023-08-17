@@ -7,7 +7,7 @@ import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getRecipes } from "../../redux/actions/recipes";
 
-const Home = () => {
+const Recipes = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,4 +35,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Recipes;
