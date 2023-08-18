@@ -37,7 +37,7 @@ const CreateRecipe = () => {
             initialValues={{
               title: "",
               description: "",
-              category: "",
+              category: "chicken",
               preparationTime: {
                 count: 0,
                 measure: "mins",
@@ -56,9 +56,9 @@ const CreateRecipe = () => {
             //   email: Yup.string().email("Invalid email address").required("Required"),
             // })}
             onSubmit={(values) => {
-              // console.log("VALUES: ", values);
+              console.log("VALUES: ", values);
               // console.log("User", user.username)
-              dispatch(createRecipe({ ...values, author: user.username }, navigate, notify));
+              // dispatch(createRecipe({ ...values, author: user.username }, navigate, notify));
             }}
             component={CreateForm}
           />

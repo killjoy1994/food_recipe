@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { PiBowlFood } from "react-icons/pi";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { signout } from "../../redux/actions/auth";
-import { SIGNOUT } from "../../redux/constants/constant";
+import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Profile from "../Elements/Profile";
@@ -17,6 +16,10 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const showNavbar = pathname !== "/createRecipe" && pathname !== "/auth";
+
+  const token = JSON.parse(localStorage.getItem("authData"))?.token
+  const decoded = jwt_decode(token)
+  console.log(decoded)
 
   const handleClick = () => {
     navigate("/");
