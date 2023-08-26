@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { SIGNOUT } from "../../redux/constants/constant";
+
 import { Link } from "react-router-dom";
 
-const Profile = ({ user, dispatch, setUser }) => {
+const Profile = ({ user, dispatch, setUser, handleLogout }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
@@ -38,11 +38,7 @@ const Profile = ({ user, dispatch, setUser }) => {
               Bookmark
             </span>
             <span
-              onClick={() => {
-                console.log("test");
-                dispatch({ type: SIGNOUT });
-                setUser(null);
-              }}
+              onClick={handleLogout}
               className="text-slate-700 hover:text-opacity-80 rounded-sm font-medium text-[14px] text-start cursor-pointer"
             >
               Logout

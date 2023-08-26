@@ -1,13 +1,13 @@
 import * as api from "../../api/index";
 import { CREATE_RECIPE, FETCH_RECIPE, FETCH_RECIPES, LOADING_END, LOADING_START } from "../constants/constant";
 
-export const getRecipes = () => async (dispatch) => {
+export const getRecipes = (page) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_START });
-    const { data } = await api.getRecipes();
+    const { data } = await api.getRecipes(page);
     dispatch({ type: LOADING_END });
-    console.log(data);
-    dispatch({ type: FETCH_RECIPES, payload: data });
+    console.log(data.data);
+    dispatch({ type: FETCH_RECIPES, payload: data.data });
   } catch (error) {
     console.log(error);
   }

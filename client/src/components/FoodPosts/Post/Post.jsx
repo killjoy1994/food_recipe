@@ -29,7 +29,7 @@ const Post = ({ data }) => {
         <p className="text-xl mt-3 mb-2 font-semibold text-slate-700">{data.title}</p>
         <div className="flex justify-between">
           <p className="text-slate-700 font-bold">
-            {data.totalTime?.hours}h {data.totalTime?.minutes}m
+            {data.totalTime?.hours == 0 ? "" : data.totalTime?.hours + "h"} {data.totalTime?.minutes}m
           </p>
           <p className="text-slate-700 font-bold">{getLevel(data.totalTime)}</p>
         </div>

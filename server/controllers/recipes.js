@@ -2,11 +2,42 @@ const { getTotalTime } = require("../helpers/getTotalTime");
 const Recipe = require("../model/recipes");
 
 const getRecipes = async (req, res) => {
-  const data = await Recipe.find({}).sort({ updatedAt: "desc" });
-  res.json(data);
+  const { page } = req.query;
+  console.log("Page: ", page);
+  try {
+    const limit = 8;
+    const startIndex = (+page - 1) * limit;
+    const total = await Recipe.countDocuments({});
+
+    const recipes = await Recipe.find()
+      .sort({ _id: -1 })
+      .limit(limit)
+      .skip(startIndex);
+
+    res.status(200).json({
+      data: recipes,
+      currentPage: +page,
+      pageTotal: Math.ceil(total / limit),
+    });
+  } catch (error) {
+    console.log(error)
+  }
+
+  // const data = await Recipe.find({}).sort({ updatedAt: "desc" });
+  // res.json(data);
 };
 const createRecipe = async (req, res) => {
-  const { title, description, preparationTime, cookTime, category, ingredients, steps, selectedFile, author } = req.body;
+  const {
+    title,
+    description,
+    preparationTime,
+    cookTime,
+    category,
+    ingredients,
+    steps,
+    selectedFile,
+    author,
+  } = req.body;
 
   try {
     const newRecipe = await Recipe.create({

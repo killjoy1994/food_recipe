@@ -57,8 +57,8 @@ const CreateRecipe = () => {
             // })}
             onSubmit={(values) => {
               console.log("VALUES: ", values);
-              // console.log("User", user.username)
-              // dispatch(createRecipe({ ...values, author: user.username }, navigate, notify));
+              console.log("User", user.username)
+              dispatch(createRecipe({ ...values, author: user.username }, navigate, notify));
             }}
             component={CreateForm}
           />

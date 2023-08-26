@@ -27,7 +27,7 @@ export const signin = (formData, notify, navigate) => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      notify("fail", error.response.data.message);
+      // notify("fail", error.response.data.message);
     }
   };
 };

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Profile from "../Elements/Profile";
 import BrandLogo from "../Elements/BrandLogo";
+import { SIGNOUT } from "../../redux/constants/constant";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -15,17 +16,29 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("authData")));
   const dispatch = useDispatch();
 
-  const showNavbar = pathname !== "/createRecipe" && pathname !== "/auth";
-
-  const token = JSON.parse(localStorage.getItem("authData"))?.token
-  const decoded = jwt_decode(token)
-  console.log(decoded)
+  const showNavbar = pathname !== "/createRecipe" && pathname !== "/auth"
 
   const handleClick = () => {
     navigate("/");
   };
 
+  const handleLogout = () => {
+    console.log("test");
+    dispatch({ type: SIGNOUT });
+    setUser(null);
+  }
+
   useEffect(() => {
+    // const token = JSON.parse(localStorage.getItem("authData"))?.token
+    const token = user?.token
+
+    if (token) {
+      const decoded = jwt_decode(token)
+      console.log(decoded)
+      if (decoded.exp * 1000 < new Date().getTime()) {
+        handleLogout();
+      }
+    }
     setUser(JSON.parse(localStorage.getItem("authData")));
   }, [location]);
 
@@ -48,7 +61,7 @@ const Navbar = () => {
             SIGN IN
           </Link>
         )}
-        {user && <Profile user={user} dispatch={dispatch} setUser={setUser} />}
+        {user && <Profile user={user} dispatch={dispatch} setUser={setUser} handleLogout={handleLogout} />}
       </div>
     )
   );

@@ -4,16 +4,8 @@ import CreateRecipe from "../CreateRecipe/CreateRecipe";
 import Sidebar from "../Sidebar/Sidebar";
 import Categories from "../Categories/Categories";
 import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getRecipes } from "../../redux/actions/recipes";
 
 const Recipes = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getRecipes());
-  }, []);
-
   return (
     <div className="max-w-[1300px] gap-x-5 mx-auto w-full px-8 pt-5 bg-white">
       <ul className="mb-5 flex gap-x-3 items-center">
