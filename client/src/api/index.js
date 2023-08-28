@@ -5,7 +5,9 @@ const API = axios.create({ baseURL: "http://localhost:4000" });
 // middleware
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("authData")) {
-    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("authData")).token}`;
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("authData")).token
+    }`;
   }
   return req;
 });
@@ -17,4 +19,6 @@ export const signin = (formData) => API.post("/users/signin", formData);
 //recipes
 export const getRecipes = (page) => API.get(`/recipes?page=${page}`);
 export const getRecipe = (id) => API.get(`/recipes/${id}`);
+export const getRecipesBySearch = (searchQuery) =>
+  API.get(`/recipes/search?searchQuery=${searchQuery}`);
 export const createRecipe = (formData) => API.post("/recipes", formData);

@@ -3,7 +3,7 @@ const Recipe = require("../model/recipes");
 
 const getRecipes = async (req, res) => {
   const { page } = req.query;
-  console.log("Page: ", page);
+  // console.log("Page: ", page);
   try {
     const limit = 8;
     const startIndex = (+page - 1) * limit;
@@ -20,12 +20,28 @@ const getRecipes = async (req, res) => {
       pageTotal: Math.ceil(total / limit),
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 
   // const data = await Recipe.find({}).sort({ updatedAt: "desc" });
   // res.json(data);
 };
+
+const getRecipesBySearch = async (req, res) => {
+  const { searchQuery } = req.query;
+
+  // console.log(req)
+
+  try {
+    const title = new RegExp(searchQuery, "i");
+    const recipes = await Recipe.find({ title });
+    console.log("Recipes: ", recipes);
+    res.json({ result: recipes });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const createRecipe = async (req, res) => {
   const {
     title,
@@ -72,4 +88,10 @@ const getRecipe = async (req, res) => {
 };
 const deleteRecipe = (req, res) => {};
 
-module.exports = { getRecipes, createRecipe, getRecipe, deleteRecipe };
+module.exports = {
+  getRecipes,
+  getRecipesBySearch,
+  createRecipe,
+  getRecipe,
+  deleteRecipe,
+};

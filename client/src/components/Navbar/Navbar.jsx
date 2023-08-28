@@ -8,12 +8,14 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import Profile from "../Elements/Profile";
 import BrandLogo from "../Elements/BrandLogo";
 import { SIGNOUT } from "../../redux/constants/constant";
+import { getRecipesBySearch } from "../../redux/actions/recipes";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("authData")));
+  const [inputValue, setInputValue] = useState("")
   const dispatch = useDispatch();
 
   const showNavbar = pathname !== "/createRecipe" && pathname !== "/auth"
@@ -28,7 +30,38 @@ const Navbar = () => {
     setUser(null);
   }
 
+  const handleSearchInput = (e) => {
+    setInputValue(e.target.value)
+  }
+
+  const searchRecipes = () => {
+    if (inputValue.trim()) {
+      dispatch(getRecipesBySearch(inputValue))
+      navigate(`/recipes/search?searchQuery=${inputValue}`)
+    } else {
+      // if(location.search) {
+      //   dispatch(getRecipesBySearch(loca))
+      // }
+      navigate("/")
+    }
+  }
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      console.log(e)
+      searchRecipes()
+      setInputValue("")
+    }
+  }
+
+  console.log(location)
+
   useEffect(() => {
+
+    // if (location.search) {
+    //   searchRecipes()
+    // }
+
     // const token = JSON.parse(localStorage.getItem("authData"))?.token
     const token = user?.token
 
@@ -42,6 +75,10 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem("authData")));
   }, [location]);
 
+  // useEffect(() => {
+  //   searchRecipes()
+  // }, [])
+
   return (
     showNavbar && (
       <div className="h-[80px] max-w-[1300px] mx-auto bg-white px-8 flex items-center justify-between">
@@ -51,6 +88,9 @@ const Navbar = () => {
             className="w-[300px] h-10 border-2 border-solid border-slate-700 rounded-full pl-4 border-opacity-30"
             type="text"
             placeholder="Search recipe..."
+            onKeyDown={handleSearch}
+            onChange={handleSearchInput}
+            value={inputValue}
           />
         </div>
         {!user && (

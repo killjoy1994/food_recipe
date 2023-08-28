@@ -47,7 +47,7 @@ const FoodPosts = () => {
         }}
         onClick={e => console.log(e)}
         pageRangeDisplayed={2}
-        pageCount={6}
+        pageCount={totalPages}
         previousLabel="<"
         renderOnZeroPageCount={null}
         forcePage={currentPage - 1}
