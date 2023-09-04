@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ingredientsImg from "../../assets/ingredients.jpg";
 import BrandLogo from "../Elements/BrandLogo";
@@ -7,14 +7,18 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 // import { ImCross } from "react-icons/im";
 import CreateForm from "./CreateForm/CreateForm";
 import { useDispatch } from "react-redux";
-import { createRecipe } from "../../redux/actions/recipes";
+import { createRecipe, getDropdownCategories } from "../../redux/actions/recipes";
 import { notify } from "../../helpers/notify";
 
 const CreateRecipe = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("authData"))?.result;
- 
+
+  useEffect(() => {
+    dispatch(getDropdownCategories())
+  }, [])
+
   return (
     <div className="min-h-screen relative flex">
       <div className="overflow-hidden h-screen w-[30%] fixed">

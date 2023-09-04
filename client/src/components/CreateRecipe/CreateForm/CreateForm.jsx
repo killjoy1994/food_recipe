@@ -1,13 +1,21 @@
 import { ErrorMessage, Field, FieldArray, Form } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { LiaTimesSolid } from "react-icons/lia";
 import FileBase64 from "react-file-base64";
 import FileInput from "../../Elements/FileInput";
+import { useDispatch, useSelector } from "react-redux";
+import { getDropdownCategories } from "../../../redux/actions/recipes";
 
 const CreateForm = (props) => {
   const { values } = props;
-  // console.log(values);
+  const { dropdownCategories } = useSelector(state => state.recipes)
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(getDropdownCategories())
+  }, [])
+
+  console.log(dropdownCategories)
   const categories = ["Chicken", "Beef", "Drink", "Dessert", "Soup", "Vegan"];
 
   return (
@@ -98,15 +106,15 @@ const CreateForm = (props) => {
               className="border border-solid border-opacity-40 border-slate-800 rounded-sm outline-none mt-1 pl-2 py-1 text-slate-700"
               name="category"
               as="select"
-              // placeholder="Select category of your food..."
+            // placeholder="Select category of your food..."
             >
               {/* <option disabled value="">
                 Select category of your recipe
               </option> */}
-              {categories.map((ctg, idx) => {
+              {dropdownCategories.map((ctg) => {
                 return (
-                  <option key={idx} value={ctg}>
-                    {ctg}
+                  <option key={ctg._id} value={ctg.name}>
+                    {ctg.name}
                   </option>
                 );
               })}

@@ -19,6 +19,10 @@ export const signin = (formData) => API.post("/users/signin", formData);
 //recipes
 export const getRecipes = (page) => API.get(`/recipes?page=${page}`);
 export const getRecipe = (id) => API.get(`/recipes/${id}`);
+export const getRecipesByCategory = (category, page) =>
+  API.get(`/recipes/categories/${category}?page=${page}`);
 export const getRecipesBySearch = (searchQuery) =>
   API.get(`/recipes/search?searchQuery=${searchQuery}`);
+export const getDropdownCategories = () =>
+  API.get("/recipes/dropdownCategories");
 export const createRecipe = (formData) => API.post("/recipes", formData);

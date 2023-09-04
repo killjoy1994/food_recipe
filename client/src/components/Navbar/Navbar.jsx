@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { AiOutlineSearch } from "react-icons/ai";
 import Profile from "../Elements/Profile";
 import BrandLogo from "../Elements/BrandLogo";
 import { SIGNOUT } from "../../redux/constants/constant";
@@ -48,13 +48,18 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      console.log(e)
+      // console.log(e)
       searchRecipes()
-      setInputValue("")
+      // setInputValue("")
     }
   }
 
-  console.log(location)
+  const handleClickSearch = () => {
+    searchRecipes()
+    // setInputValue("")
+  }
+
+  // console.log(location)
 
   useEffect(() => {
 
@@ -84,14 +89,19 @@ const Navbar = () => {
       <div className="h-[80px] max-w-[1300px] mx-auto bg-white px-8 flex items-center justify-between">
         <div className="flex gap-x-8 items-center">
           <BrandLogo logoSize={40} textSize="4xl" onClick={handleClick} />
-          <input
-            className="w-[300px] h-10 border-2 border-solid border-slate-700 rounded-full pl-4 border-opacity-30"
-            type="text"
-            placeholder="Search recipe..."
-            onKeyDown={handleSearch}
-            onChange={handleSearchInput}
-            value={inputValue}
-          />
+          <div className="flex items-center">
+            <input
+              className="w-[300px] h-10 border-2 border-solid border-slate-700 rounded-l-full pl-4 border-opacity-30"
+              type="text"
+              placeholder="Search recipe..."
+              onKeyDown={handleSearch}
+              onChange={handleSearchInput}
+              value={inputValue}
+            />
+            <button onClick={handleClickSearch} className="border-2 border-solid border-slate-700 border-opacity-30 py-1 pr-4 pl-2 rounded-r-full border-l-0 bg-slate-500 bg-opacity-10">
+              <AiOutlineSearch size={30} color="grey" />
+            </button>
+          </div>
         </div>
         {!user && (
           <Link

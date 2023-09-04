@@ -10,7 +10,7 @@ const Recipes = () => {
     <div className="max-w-[1300px] gap-x-5 mx-auto w-full px-8 pt-5 bg-white">
       <ul className="mb-5 flex gap-x-3 items-center">
         <li className="text-xl font-semibold text-slate-700">
-          <NavLink className={({ isActive }) => (isActive ? "text-slate-500" : "text-slate-700 hover:text-slate-500")} to="/recipes">
+          <NavLink className={({ isActive }) => (isActive ? "text-slate-500" : "text-slate-700 hover:text-slate-500")} to="/">
             RECIPES
           </NavLink>
         </li>

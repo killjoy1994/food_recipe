@@ -1,5 +1,6 @@
 const { getTotalTime } = require("../helpers/getTotalTime");
 const Recipe = require("../model/recipes");
+const Category = require("../model/categories");
 
 const getRecipes = async (req, res) => {
   const { page } = req.query;
@@ -22,21 +23,79 @@ const getRecipes = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
-  // const data = await Recipe.find({}).sort({ updatedAt: "desc" });
-  // res.json(data);
 };
 
 const getRecipesBySearch = async (req, res) => {
   const { searchQuery } = req.query;
 
-  // console.log(req)
-
   try {
     const title = new RegExp(searchQuery, "i");
     const recipes = await Recipe.find({ title });
-    console.log("Recipes: ", recipes);
+    // console.log("Recipes: ", recipes);
     res.json({ result: recipes });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getDropdownCategories = async (req, res) => {
+  try {
+    let categories = await Category.find({});
+    if (categories.length === 0) {
+      const categoriesToCreate = [
+        { name: "chicken" },
+        { name: "beef" },
+        { name: "fish" },
+        { name: "dessert" },
+        { name: "drink" },
+        { name: "soup" },
+        { name: "vegan" },
+        { name: "pork" },
+      ];
+      categories = await Category.create(categoriesToCreate);
+    }
+    // console.log(categories);
+    res.status(200).json(categories);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getRecipe = async (req, res) => {
+  const { id } = req.params;
+
+  console.log("params: ", req.params);
+  try {
+    const post = await Recipe.findById(id);
+    // console.log("POST: ", post)
+    res.status(200).json({ result: post });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error.message });
+  }
+};
+
+const getRecipesByCategory = async (req, res) => {
+  const { id } = req.params;
+  const { page } = req.query;
+
+  try {
+    const limit = 8;
+    const startIndex = (+page - 1) * limit;
+    const total = await Recipe.countDocuments({ category: id });
+
+    const recipes = await Recipe.find({ category: id })
+      .sort({ _id: -1 })
+      .limit(limit)
+      .skip(startIndex);
+
+    res
+      .status(200)
+      .json({
+        data: recipes,
+        currentPage: +page,
+        pageTotal: Math.ceil(total / limit),
+      });
   } catch (error) {
     console.log(error);
   }
@@ -74,23 +133,14 @@ const createRecipe = async (req, res) => {
     console.log(error);
   }
 };
-const getRecipe = async (req, res) => {
-  const { id } = req.params;
 
-  try {
-    const post = await Recipe.findById(id);
-    // console.log("POST: ", post)
-    res.status(200).json({ result: post });
-  } catch (error) {
-    console.log(error);
-    res.status(404).json({ message: error.message });
-  }
-};
 const deleteRecipe = (req, res) => {};
 
 module.exports = {
   getRecipes,
   getRecipesBySearch,
+  getDropdownCategories,
+  getRecipesByCategory,
   createRecipe,
   getRecipe,
   deleteRecipe,
