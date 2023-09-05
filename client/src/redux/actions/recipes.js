@@ -34,12 +34,12 @@ export const getRecipesByCategory = (category, page) => async (dispatch) => {
   }
 };
 
-export const getRecipesBySearch = (searchQuery) => async (dispatch) => {
+export const getRecipesBySearch = (searchQuery, page) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_START });
-    const { data } = await api.getRecipesBySearch(searchQuery);
+    const { data } = await api.getRecipesBySearch(searchQuery, page);
     console.log(data);
-    dispatch({ type: FETCH_RECIPES_BY_SEARCH, payload: data.result });
+    dispatch({ type: FETCH_RECIPES_BY_SEARCH, payload: data });
     dispatch({ type: LOADING_END });
   } catch (error) {
     console.log(error);

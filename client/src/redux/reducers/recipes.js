@@ -33,7 +33,12 @@ const recipesReducer = (
         totalPages: action.payload.pageTotal,
       };
     case FETCH_RECIPES_BY_SEARCH:
-      return { ...state, recipes: action.payload };
+      return {
+        ...state,
+        recipes: action.payload.data,
+        currentPage: action.payload.currentPage,
+        totalPages: action.payload.pageTotal,
+      };
     case FETCH_RECIPE:
       return { ...state, recipe: action.payload };
     case FETCH_DROPDOWN_CATEGORIES:

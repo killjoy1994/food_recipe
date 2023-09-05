@@ -26,13 +26,24 @@ const getRecipes = async (req, res) => {
 };
 
 const getRecipesBySearch = async (req, res) => {
-  const { searchQuery } = req.query;
+  const { searchQuery, page } = req.query;
+  const title = new RegExp(searchQuery, "i");
 
   try {
-    const title = new RegExp(searchQuery, "i");
-    const recipes = await Recipe.find({ title });
+    const limit = 8;
+    const startIndex = (+page - 1) * limit;
+    const total = await Recipe.countDocuments({ title });
+
+    const recipes = await Recipe.find({ title })
+      .sort({ _id: -1 })
+      .limit(limit)
+      .skip(startIndex);
     // console.log("Recipes: ", recipes);
-    res.json({ result: recipes });
+    res.json({
+      data: recipes,
+      currentPage: +page,
+      pageTotal: Math.ceil(total / limit),
+    });
   } catch (error) {
     console.log(error);
   }
@@ -89,13 +100,11 @@ const getRecipesByCategory = async (req, res) => {
       .limit(limit)
       .skip(startIndex);
 
-    res
-      .status(200)
-      .json({
-        data: recipes,
-        currentPage: +page,
-        pageTotal: Math.ceil(total / limit),
-      });
+    res.status(200).json({
+      data: recipes,
+      currentPage: +page,
+      pageTotal: Math.ceil(total / limit),
+    });
   } catch (error) {
     console.log(error);
   }

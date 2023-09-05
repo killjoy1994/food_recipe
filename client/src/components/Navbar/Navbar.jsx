@@ -10,6 +10,10 @@ import BrandLogo from "../Elements/BrandLogo";
 import { SIGNOUT } from "../../redux/constants/constant";
 import { getRecipesBySearch } from "../../redux/actions/recipes";
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search)
+}
+
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +21,8 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("authData")));
   const [inputValue, setInputValue] = useState("")
   const dispatch = useDispatch();
+  const query = useQuery();
+  const page = query.get("page")
 
   const showNavbar = pathname !== "/createRecipe" && pathname !== "/auth"
 
@@ -36,8 +42,8 @@ const Navbar = () => {
 
   const searchRecipes = () => {
     if (inputValue.trim()) {
-      dispatch(getRecipesBySearch(inputValue))
-      navigate(`/recipes/search?searchQuery=${inputValue}`)
+      dispatch(getRecipesBySearch(inputValue, page || 1))
+      navigate(`/recipes/search?searchQuery=${inputValue}&page=${page || 1}`)
     } else {
       // if(location.search) {
       //   dispatch(getRecipesBySearch(loca))

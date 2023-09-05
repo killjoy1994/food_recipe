@@ -31,7 +31,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<div>404 NOT FOUND</div>} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }

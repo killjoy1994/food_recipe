@@ -3,7 +3,7 @@ import Post from "./Post/Post";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader/Loader";
 import ReactPaginate from "react-paginate"
-import { getRecipes, getRecipesByCategory } from "../../redux/actions/recipes";
+import { getRecipes, getRecipesByCategory, getRecipesBySearch } from "../../redux/actions/recipes";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const useQuery = () => {
@@ -25,6 +25,8 @@ const FoodPosts = () => {
   useEffect(() => {
     if (params.category) {
       dispatch(getRecipesByCategory(params.category, page || 1))
+    } else if (searchQuery) {
+      dispatch(getRecipesBySearch(searchQuery, page || 1))
     } else {
       dispatch(getRecipes(page || 1));
     }
