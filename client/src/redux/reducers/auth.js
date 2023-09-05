@@ -1,10 +1,10 @@
-import { LOADING_END, LOADING_START, SIGNIN, SIGNOUT, SIGNUP } from "../constants/constant";
+import { AUTH_LOADING_END, AUTH_LOADING_START, SIGNIN, SIGNOUT, SIGNUP } from "../constants/constant";
 
 export const authReducer = (state = { authData: null, isLoading: false }, action) => {
   switch (action.type) {
-    case LOADING_START:
+    case AUTH_LOADING_START:
       return { ...state, isLoading: true };
-    case LOADING_END:
+    case AUTH_LOADING_END:
       return { ...state, isLoading: false };
     case SIGNUP:
       return state;

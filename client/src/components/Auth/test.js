@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import food from "../../assets/food.jpg";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup, signin } from "../../redux/actions/auth";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +9,6 @@ import BrandLogo from "../Elements/BrandLogo";
 import { notify } from "../../helpers/notify";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import AuthLoader from "../Loader/AuthLoader";
 
 const registerInitialValues = {
   username: "",
@@ -23,26 +22,22 @@ const loginInitialValues = {
   password: "",
 };
 
-const loginSchema = Yup.object({
-  email: Yup.string().email("Must be a valid email").required("Email cant be empty!"),
-  password: Yup.string().required("Password cant be empty!")
-})
-const registerSchema = Yup.object({
-  username: Yup.string().min(6, "Must be atleast 5 characters or more").required("Username cant be empty!"),
-  email: Yup.string().email("Must be a valid email").required("Email cant be empty!"),
-  password: Yup.string().required("Password cant be empty!")
-})
-
 const Auth = () => {
   const [isRegistered, setIsRegistered] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(signup(formValues));
   const navigate = useNavigate();
-  const { isLoading } = useSelector(state => state.auth)
 
   const formik = useFormik({
     initialValues: isRegistered ? loginInitialValues : registerInitialValues,
-    validationSchema: isRegistered ? loginSchema : registerSchema,
-    enableReinitialize: true,
+    // validationSchema: Yup.object({
+    //   firstName: Yup.string()
+    //     .max(15, "Must be 15 characters or less")
+    //     .required("Required"),
+    //   lastName: Yup.string()
+    //     .max(20, "Must be 20 characters or less")
+    //     .required("Required"),
+    //   email: Yup.string().email("Invalid email address").required("Required"),
+    // }),
     onSubmit: (values, actions) => {
       if (!isRegistered) {
         dispatch(signup(values, notify));
@@ -77,25 +72,18 @@ const Auth = () => {
                       Username
                     </span>
                     <input
-                      id="username"
-                      name="username"
                       placeholder="Username..."
                       className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
                       type="text"
                       value={formik.values.username}
                       onChange={formik.handleChange}
                     />
-                    {formik.touched.username && formik.errors.username ? (
-                      <div className="mt-1 text-red-600">{formik.errors.username}</div>
-                    ) : null}
                   </label>
                 </>
               )}
               <label>
                 <span className="font-semibold mb-2 text-slate-700">Email</span>
                 <input
-                  id="email"
-                  name="email"
                   placeholder="Email..."
                   className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
                   type="text"
@@ -103,17 +91,12 @@ const Auth = () => {
                   onChange={formik.handleChange}
                   autoComplete="off"
                 />
-                {formik.touched.email && formik.errors.email ? (
-                  <div className="mt-1 text-red-600">{formik.errors.email}</div>
-                ) : null}
               </label>
               <label>
                 <span className="font-semibold mb-2 text-slate-700">
                   Password
                 </span>
                 <input
-                  id="password"
-                  name="password"
                   placeholder="Password..."
                   className="px-3 py-1 w-full border-2 border-slate-300 outline-none rounded-sm"
                   type="password"
@@ -121,9 +104,6 @@ const Auth = () => {
                   onChange={formik.handleChange}
                   autoComplete="off"
                 />
-                {formik.touched.password && formik.errors.password ? (
-                  <div className="mt-1 text-red-600">{formik.errors.password}</div>
-                ) : null}
               </label>
               {/* {!isRegistered && (
               <label>
