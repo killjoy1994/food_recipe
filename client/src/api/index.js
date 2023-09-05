@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:4000" });
+const PROD_URL = "https://food-recipe-api-roan.vercel.app/";
+const DEV_URL = "http://localhost:4000"
+const API = axios.create({ baseURL: PROD_URL });
 
 // middleware
 API.interceptors.request.use((req) => {
