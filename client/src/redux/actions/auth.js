@@ -1,14 +1,15 @@
 import * as API from "../../api/index";
 import { SIGNUP, AUTH_LOADING_END, AUTH_LOADING_START, SIGNIN, SIGNOUT } from "../constants/constant";
 
-export const signup = (formData, notify) => {
+export const signup = (formData, notify, callback) => {
   return async (dispatch) => {
     dispatch({ type: AUTH_LOADING_START });
     try {
       await API.signup(formData);
       dispatch({ type: SIGNUP });
       dispatch({ type: AUTH_LOADING_END });
-      notify("success", "Account created, welcome!");
+      notify("success", "Account created, please login to your account!");
+      callback(true)
     } catch (error) {
       console.log(error);
       notify("fail", error.response.data.message);

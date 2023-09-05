@@ -45,7 +45,7 @@ const Auth = () => {
     enableReinitialize: true,
     onSubmit: (values, actions) => {
       if (!isRegistered) {
-        dispatch(signup(values, notify));
+        dispatch(signup(values, notify, setIsRegistered));        
       } else {
         dispatch(signin(values, notify, navigate));
       }
